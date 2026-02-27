@@ -1,0 +1,816 @@
+<!-- Sara Software Systems | Agile Delivery, Program Management & O&M -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agile Delivery & Program Management - Sara Software Systems</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    @page { size: letter; margin: 0; }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background: white;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    .page {
+      width: 8.5in;
+      height: 11in;
+      padding: 0.35in 0.5in 0.3in;
+      background: white;
+      position: relative;
+      page-break-after: always;
+      margin: 0 auto;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      box-sizing: border-box;
+    }
+
+    @media screen {
+      body { background: #e9ecef; padding: 20px 0; }
+      .page { margin: 20px auto; }
+    }
+
+    @media print {
+      body { background: white; padding: 0; }
+      .page { margin: 0; box-shadow: none; page-break-after: always; }
+      .page:last-child { page-break-after: auto; }
+      * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; color-adjust: exact !important; }
+    }
+
+    /* ── LOGO HEADER ── */
+    .doc-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 9px;
+      border-bottom: 4px solid #0052CC;
+      margin-bottom: 13px;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    .logo-section { display: flex; align-items: center; }
+    .logo { width: 180px; height: auto; display: block; }
+    .logo-fallback {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 18px;
+      font-weight: 800;
+      color: #0052CC;
+      line-height: 1.2;
+      display: none;
+    }
+    .cert-badges { text-align: right; font-size: 9px; font-weight: 700; color: #0052CC; }
+    .cert-badges div {
+      background: #f0f4ff;
+      padding: 3px 10px;
+      border-radius: 12px;
+      margin-bottom: 3px;
+      display: inline-block;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    /* ── FOOTER ── */
+    .doc-footer {
+      margin-top: auto;
+      padding-top: 7px;
+      border-top: 2px solid #0052CC;
+      font-size: 8px;
+      color: #666;
+      text-align: center;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    .doc-footer strong { color: #0052CC; }
+
+    /* ══════════════════════════════════════
+       MAIN CONTENT STYLING
+    ══════════════════════════════════════ */
+    .sara-agile {
+      --ink: #0f172a;
+      --muted: #475569;
+      --line: #e2e8f0;
+      --soft: #f8fafc;
+      --card: #ffffff;
+      --brand: #0052CC;
+      --brand2: #0a3faa;
+      --radius: 12px;
+      --shadow: 0 4px 14px rgba(2,6,23,.07);
+      color: var(--ink);
+      background: transparent;
+      line-height: 1.4;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .sara-agile .wrap { flex: 1; display: flex; flex-direction: column; }
+    .sara-agile h2, .sara-agile h3, .sara-agile h4 { margin: 0 0 6px; letter-spacing: -.02em; }
+    .sara-agile p { margin: 0 0 7px; color: var(--muted); }
+    .sara-agile .muted { color: var(--muted); }
+
+    .eyebrow {
+      display: inline-flex;
+      gap: 6px;
+      align-items: center;
+      font-weight: 600;
+      color: var(--brand2);
+      background: rgba(0,82,204,.08);
+      border: 1px solid rgba(0,82,204,.18);
+      padding: 3px 9px;
+      border-radius: 999px;
+      margin: 0 0 7px;
+      font-size: 9.5px;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    /* HERO */
+    .hero {
+      display: grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 11px;
+      align-items: stretch;
+      margin-bottom: 11px;
+    }
+    .hero__text {
+      background: linear-gradient(180deg, var(--soft), #fff);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 13px 15px;
+      box-shadow: var(--shadow);
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    .hero__text h2 { font-size: 17px; color: var(--ink); margin-bottom: 5px; }
+    .lede { font-size: 9px; max-width: 68ch; }
+    .ctaRow { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 9px; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      border-radius: 8px;
+      padding: 5px 10px;
+      border: 1px solid var(--line);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 9px;
+    }
+    .btn--primary {
+      background: var(--brand);
+      color: #fff;
+      border-color: rgba(0,82,204,.35);
+      box-shadow: 0 5px 12px rgba(0,82,204,.18);
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    .btn--ghost { background: #fff; color: var(--ink); }
+
+    /* PROOF */
+    .proof {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 11px;
+      box-shadow: var(--shadow);
+    }
+    .proof__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; }
+    .kpi {
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      padding: 8px 9px;
+      background: linear-gradient(180deg, #fff, var(--soft));
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    .kpi__value { font-size: 17px; font-weight: 800; color: var(--ink); letter-spacing: -.03em; line-height: 1.0; margin-bottom: 3px; }
+    .kpi__label { color: var(--muted); font-size: 8.5px; font-weight: 600; }
+    .proof__note { margin-top: 7px; font-size: 8.5px; color: var(--muted); }
+
+    /* CAPABILITY CARDS */
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 9px;
+      margin: 0 0 11px;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 10px 11px;
+      box-shadow: var(--shadow);
+    }
+    .card h3 { font-size: 10.5px; color: var(--ink); }
+    .card p { font-size: 8px; }
+    .bullets { margin: 7px 0 0; padding: 0; list-style: none; display: grid; gap: 5px; }
+    .bullets li {
+      display: flex;
+      gap: 6px;
+      align-items: flex-start;
+      color: var(--muted);
+      font-size: 7.5px;
+    }
+    .bullets li::before {
+      content: "";
+      flex: 0 0 7px;
+      height: 7px;
+      margin-top: 3px;
+      border-radius: 999px;
+      background: rgba(0,82,204,.35);
+      box-shadow: 0 0 0 2px rgba(0,82,204,.10);
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    /* SECTION TITLE */
+    .sectionTitle {
+      font-size: 10.5px;
+      font-weight: 700;
+      font-family: 'Montserrat', system-ui, sans-serif;
+      color: var(--ink);
+      margin-bottom: 7px;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+      padding-bottom: 4px;
+      border-bottom: 2px solid #0052CC;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    /* HOW WE DELIVER */
+    .how {
+      background: linear-gradient(180deg, var(--soft), #fff);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 10px 11px;
+      box-shadow: var(--shadow);
+      margin-bottom: 11px;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    .steps { display: grid; grid-template-columns: repeat(2, 1fr); gap: 7px; }
+    .step {
+      display: flex;
+      gap: 8px;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      padding: 8px 9px;
+    }
+    .step__n {
+      width: 22px;
+      height: 22px;
+      border-radius: 7px;
+      display: grid;
+      place-items: center;
+      background: rgba(0,82,204,.10);
+      color: var(--brand2);
+      font-weight: 800;
+      font-size: 10px;
+      border: 1px solid rgba(0,82,204,.20);
+      flex: 0 0 22px;
+      font-family: 'Montserrat', sans-serif;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    .step__body h4 { font-size: 8.5px; margin-bottom: 2px; }
+    .step__body p { margin: 0; font-size: 7.5px; }
+
+    /* RESULT */
+    .result {
+      background: linear-gradient(180deg, var(--soft), #fff);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 10px 11px;
+      box-shadow: var(--shadow);
+      margin-bottom: 11px;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    .result__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 7px; }
+    .resultCard { 
+      display: flex;
+      gap: 8px;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      padding: 8px 9px;
+      flex-direction: column;
+    }
+    .resultCard h4 { font-size: 8.5px; margin-bottom: 2px; }
+    .resultCard p { margin: 0; font-size: 7.5px; }
+
+    /* CONTACT STRIP */
+    .contactStrip {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 11px;
+      border-radius: var(--radius);
+      padding: 10px 13px;
+      background: linear-gradient(180deg, var(--soft), #fff);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    .contactStrip h3 { margin: 0 0 3px; font-size: 10.5px; color: var(--ink); font-weight: 700; }
+    .contactStrip p { margin: 0; font-size: 8px; color: var(--muted); }
+    .contactStrip__actions { display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
+
+    /* ══ PROJECT CARDS - 3 COLUMN GRID ══ */
+    .p2-title {
+      font-family: 'Montserrat', system-ui, sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      color: #0052CC;
+      margin-bottom: 10px;
+      padding-bottom: 4px;
+      border-bottom: 2px solid #0052CC;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    /* METHODOLOGIES & TOOLS */
+    .tools-section {
+      margin-bottom: 11px;
+    }
+    .tools-card {
+      background: linear-gradient(180deg, var(--soft), #fff);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 10px 11px;
+      box-shadow: var(--shadow);
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 9px;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    .tool-category {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      padding: 8px 9px;
+    }
+    .tool-category-title {
+      font-size: 8.5px;
+      font-weight: 700;
+      color: var(--ink);
+      margin: 0 0 6px;
+      letter-spacing: -.01em;
+    }
+    .tech-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+    }
+    .tech-tag {
+      display: inline-block;
+      background: rgba(0,82,204,.08);
+      color: var(--brand2);
+      border: 1px solid rgba(0,82,204,.18);
+      padding: 3px 7px;
+      border-radius: 6px;
+      font-size: 7px;
+      font-weight: 600;
+      white-space: nowrap;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    
+    /* 3-COLUMN GRID FOR PROJECTS */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+    
+    .project {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      padding: 8px 9px;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    
+    .project-header { 
+      display: flex; 
+      justify-content: space-between; 
+      align-items: flex-start; 
+      margin-bottom: 4px; 
+      gap: 6px; 
+      flex-wrap: wrap;
+    }
+    
+    .project-title { 
+      font-weight: 700; 
+      font-size: 8.5px; 
+      color: #0052CC; 
+      flex: 1; 
+      line-height: 1.25; 
+      min-width: 0;
+    }
+    
+    .project-agency {
+      background: #0052CC;
+      color: white;
+      padding: 2px 7px;
+      border-radius: 12px;
+      font-size: 7px;
+      font-weight: 700;
+      white-space: nowrap;
+      flex-shrink: 0;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    
+    .project-meta { 
+      font-size: 6.5px; 
+      color: #1e293b; 
+      line-height: 1.4; 
+      margin-bottom: 5px; 
+      background: #f8fafc;
+      padding: 4px 6px;
+      border-radius: 4px;
+      border: 1px solid #e2e8f0;
+    }
+    
+    .project-meta strong { color: #0052CC; font-weight: 700; }
+    
+    .project-highlights { 
+      margin: 0; 
+      padding: 0 0 0 10px; 
+      flex: 1;
+    }
+    
+    .project-highlights li { 
+      font-size: 6.5px; 
+      color: #475569; 
+      margin-bottom: 2px; 
+      line-height: 1.35; 
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════ PAGE 1 ══════════════ -->
+<div class="page">
+
+  <!-- Logo Header -->
+  <div class="doc-header">
+    <div class="logo-section">
+      <img src="./images.png" alt="Sara Software Systems" class="logo"
+           onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+      <div class="logo-fallback">Sara Software Systems</div>
+    </div>
+    <div class="cert-badges">
+      <div>SBA 8(a) CERTIFIED</div>
+      <div>EDWOSB &bull; SDB</div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <section class="sara-agile">
+  <div class="wrap">
+
+    <!-- HERO -->
+    <header class="hero">
+      <div class="hero__text">
+        <p class="eyebrow">Service Lines</p>
+        <h2>Agile Delivery, Program Management &amp; Operations Support</h2>
+        <p class="lede">
+          Sara Software Systems leads complex federal initiatives that require both agility and strong governance.
+          We combine iterative delivery with disciplined program controls and ITIL-aligned operations to deliver
+          secure, measurable outcomes in regulated environments.
+        </p>
+        <div class="ctaRow">
+          <a class="btn btn--primary" href="/cdn-cgi/l/email-protection#b7d4d8d9c3c5d6d4c3c4f7c4d6c5d6c4d8d1c3c0d6c5d2c4cec4c3d2dac499d4d8da">Get in Touch</a>
+          <a class="btn btn--ghost" href="#capabilities">Explore Capabilities</a>
+        </div>
+      </div>
+
+      <aside class="proof" aria-label="Key proof points">
+        <h3>Performance Metrics</h3>
+        <div class="proof__grid">
+          <div class="kpi">
+            <div class="kpi__value">32+</div>
+            <div class="kpi__label">Federal projects completed</div>
+          </div>
+          <div class="kpi">
+            <div class="kpi__value">12+</div>
+            <div class="kpi__label">Years of Agile experience</div>
+          </div>
+          <div class="kpi">
+            <div class="kpi__value">98%</div>
+            <div class="kpi__label">Client satisfaction</div>
+          </div>
+          <div class="kpi">
+            <div class="kpi__value">48+</div>
+            <div class="kpi__label">Certified Agile coaches</div>
+          </div>
+        </div>
+        <p class="proof__note">
+          Execution built for federal compliance: EPLC alignment, Section 508 validation, security gates, and controlled releases.
+        </p>
+      </aside>
+    </header>
+
+    <!-- CAPABILITY CARDS -->
+    <div id="capabilities" class="cards" aria-label="Capabilities">
+      <article class="card">
+        <h3>Agile Delivery in Regulated Environments</h3>
+        <p>We use Agile as a controlled delivery engine, two-week sprint cadence, backlog refinement, release planning, and stakeholder demos—integrated with federal governance, security, and compliance checkpoints.</p>
+        <ul class="bullets">
+          <li>Two-week sprint execution with measurable sprint outcomes</li>
+          <li>Backlog grooming, prioritization, and release forecasting</li>
+          <li>Regression, UAT, performance, and Section 508 validation</li>
+          <li>Release notes, production schedules, and audit-ready traceability</li>
+        </ul>
+      </article>
+      <article class="card">
+        <h3>Program &amp; Portfolio Management at Scale</h3>
+        <p>We provide the structure required to deliver change across teams and stakeholders-risk, schedule, financial controls, dependency management, and performance reporting.</p>
+        <ul class="bullets">
+          <li>Risk and issue management with weekly review cadence</li>
+          <li>Cost, burn-rate, and milestone tracking tied to outcomes</li>
+          <li>Dependency and cross-team coordination across portfolios</li>
+          <li>Executive reporting that supports fast, informed decisions</li>
+        </ul>
+      </article>
+      <article class="card">
+        <h3>Operations &amp; Maintenance (O&amp;M)</h3>
+        <p>We keep mission systems stable, secure, and continuously improving-patching, monitoring, incident response, and compliance sustainment-backed by ITIL-aligned service management.</p>
+        <ul class="bullets">
+          <li>Incident triage, escalation, and SLA-driven resolution</li>
+          <li>Proactive monitoring, vulnerability remediation, and patching</li>
+          <li>ATO sustainment support and continuous compliance reporting</li>
+          <li>Transition-in / transition-out planning and knowledge transfer</li>
+        </ul>
+      </article>
+    </div>
+
+    <!-- HOW WE DELIVER -->
+    <section class="how" aria-label="How we deliver">
+      <h3 class="sectionTitle">How We Deliver</h3>
+      <div class="steps">
+        <div class="step">
+          <div class="step__n">1</div>
+          <div class="step__body">
+            <h4>Controlled Agile Execution</h4>
+            <p>Backlog-driven delivery aligned to mission priorities, with defined security and compliance gates.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step__n">2</div>
+          <div class="step__body">
+            <h4>Governance Built Into Delivery</h4>
+            <p>Risk tracking, milestone reporting, and financial transparency—no surprises for leadership.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step__n">3</div>
+          <div class="step__body">
+            <h4>Continuous Operations Assurance</h4>
+            <p>Monitoring, patching, security updates, and performance tuning that protect availability and users.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step__n">4</div>
+          <div class="step__body">
+            <h4>Seamless Transition</h4>
+            <p>Documentation, training, and knowledge transfer that preserves continuity and institutional memory.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+     <section class="tools-section" aria-label="Methodologies and Tools">
+      <h3 class="sectionTitle">Methodologies &amp; Tools</h3>
+      <div class="tools-card">
+        <div class="tool-category">
+          <h4 class="tool-category-title">Agile Frameworks</h4>
+          <div class="tech-tags">
+            <span class="tech-tag">Agile Scrum</span>
+            <span class="tech-tag">Kanban</span>
+            <span class="tech-tag">SAFe</span>
+          </div>
+        </div>
+        <div class="tool-category">
+          <h4 class="tool-category-title">Project Management</h4>
+          <div class="tech-tags">
+            <span class="tech-tag">Azure DevOps</span>
+            <span class="tech-tag">JIRA</span>
+            <span class="tech-tag">Confluence</span>
+            <span class="tech-tag">MS Project</span>
+            <span class="tech-tag">PMBOK</span>
+          </div>
+        </div>
+        <div class="tool-category">
+          <h4 class="tool-category-title">Analytics &amp; Reporting</h4>
+          <div class="tech-tags">
+            <span class="tech-tag">Tableau</span>
+            <span class="tech-tag">Power BI</span>
+            <span class="tech-tag">EVM</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- REPRESENTATIVE CONTRACT EXPERIENCE - FIRST 3 PROJECTS -->
+    <section aria-label="Representative Contract Experience">
+      <h3 class="sectionTitle">Representative Contract Experience</h3>
+      <div class="projects-grid">
+        
+        <article class="project">
+          <div class="project-header">
+            <div class="project-title">HHS-ASPR ServiceNow HR Modules Development &amp; O&amp;M</div>
+            <span class="project-agency">HHS</span>
+          </div>
+          <div class="project-meta">
+            <strong>Contract:</strong> 47QTCA18D00D6 / 75A50224F80006<br>
+            <strong>Period:</strong> 03/2024–03/2025<br>
+            <strong>Value:</strong> $528,720 (FFP)
+          </div>
+          <ul class="project-highlights">
+            <li>Led Agile Scrum with two-week sprints for ServiceNow HR module development and O&amp;M</li>
+            <li>Managed requirements analysis, workflow development, and data migration from SROC</li>
+            <li>Integrated with EHCM, BIIS, and USA Staffing systems</li>
+            <li>Provided O&amp;M support with security patching and SLA-driven issue resolution</li>
+          </ul>
+        </article>
+
+        <article class="project">
+          <div class="project-header">
+            <div class="project-title">SBA OCIO Service Delivery &amp; ITIL Transformation</div>
+            <span class="project-agency">SBA</span>
+          </div>
+          <div class="project-meta">
+            <strong>Contract:</strong> 73351021P0039<br>
+            <strong>Period:</strong> 09/2021–09/2025<br>
+            <strong>Value:</strong> $3,614,107 (FFP)
+          </div>
+          <ul class="project-highlights">
+            <li>Strategic IT portfolio governance, CPIC implementation, and performance management</li>
+            <li>Conducted Program Health Assessments (PHAs) and Operational Assessments (OAs)</li>
+            <li>Developed real-time dashboards and implemented Technology Business Management (TBM)</li>
+            <li>Delivered training for PMs on OMB Exhibit 300/53 requirements</li>
+          </ul>
+        </article>
+
+        <article class="project">
+          <div class="project-header">
+            <div class="project-title">USDA AMS Organic Integrity Database (OID) Modernization</div>
+            <span class="project-agency">USDA</span>
+          </div>
+          <div class="project-meta">
+            <strong>Contract:</strong> 12639522A007 (BPA)<br>
+            <strong>Period:</strong> 01/2022–01/2027<br>
+            <strong>Value:</strong> BPA: $3.5M | Orders: $3.08M
+          </div>
+          <ul class="project-highlights">
+            <li>Managed Agile development with IMS, sprint planning, and EVM reporting</li>
+            <li>Completed OID modernization (.NET 5→6 on Azure) in under 11 months</li>
+            <li>Azure DevOps CI/CD pipelines with 100% quality compliance</li>
+            <li>Rigorous UAT and Section 508 compliance testing</li>
+          </ul>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- METHODOLOGIES & TOOLS -->
+   
+
+  </div>
+  </section>
+
+  <!-- Footer -->
+  <div class="doc-footer">
+    <strong>Sara Software Systems, LLC</strong> &bull; 8(a), EDWOSB, SDB Certified &bull; CAGE: 7MFP4 &bull; DUNS: 080448437 &bull; UEI: KFF3SVYAQAG3<br>
+    Email: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a6c5c9c8d2d4c7c5d2d5e6d5c7d4c7d5c9c0d2d1c7d4c3d5dfd5d2c3cbd588c5c9cb">[email&#160;protected]</a> &bull; Web: www.sarasoftwaresystems.com &bull; Phone: (301) 560-0077
+  </div>
+
+</div><!-- /page 1 -->
+
+
+<!-- ══════════════ PAGE 2 ══════════════ -->
+<div class="page">
+
+  <!-- Logo Header -->
+  <div class="doc-header">
+    <div class="logo-section">
+      <img src="./images.png" alt="Sara Software Systems" class="logo"
+           onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+      <div class="logo-fallback">Sara Software Systems</div>
+    </div>
+    <div class="cert-badges">
+      <div>PAGE 2 OF 2</div>
+    </div>
+  </div>
+
+  <section class="sara-agile">
+  <div class="wrap">
+
+    <div class="p2-title">Representative Contract Experience (Continued)</div>
+
+    <!-- REMAINING 2 PROJECTS IN 3-COLUMN GRID -->
+    <div class="projects-grid">
+      
+      <article class="project">
+        <div class="project-header">
+          <div class="project-title">USDA APHIS IPHIS &amp; eTRAP System Operations</div>
+          <span class="project-agency">USDA</span>
+        </div>
+        <div class="project-meta">
+          <strong>Contract:</strong> 12639523C0023<br>
+          <strong>Period:</strong> 01/2023–01/2026<br>
+          <strong>Value:</strong> $3,432,840 (FFP)
+        </div>
+        <ul class="project-highlights">
+          <li>Program management for mission-critical plant health systems supporting 10,000+ stakeholders</li>
+          <li>Implemented Agile Scrum with regular sprint reviews and retrospectives</li>
+          <li>Azure DevOps CI/CD pipeline management</li>
+          <li>Coordinated Configuration Control Board activities for stakeholder alignment</li>
+        </ul>
+      </article>
+
+      <article class="project">
+        <div class="project-header">
+          <div class="project-title">HHS IHS ServiceNow HRSD Development &amp; Support</div>
+          <span class="project-agency">HHS</span>
+        </div>
+        <div class="project-meta">
+          <strong>Contract:</strong> 75P00123C00053<br>
+          <strong>Period:</strong> 09/2023–09/2028<br>
+          <strong>Value:</strong> $1,914,380 (Hybrid FFP/T&amp;M)
+        </div>
+        <ul class="project-highlights">
+          <li>Agile development for ServiceNow HRSD module enhancements with 2-week sprints</li>
+          <li>Managed risk logs, weekly status updates, and sprint demonstrations</li>
+          <li>Product feature showcases for OAPS, IHS PM, and COR</li>
+          <li>Maintained burndown charts, velocity metrics, and comprehensive progress reports</li>
+        </ul>
+      </article>
+
+      <!-- Empty third column for grid balance -->
+      <div></div>
+
+    </div>
+
+    <!-- RESULT PANEL -->
+    <section class="result" aria-label="Results">
+      <h3 class="sectionTitle">The Result</h3>
+      <div class="result__grid">
+        <div class="resultCard">
+          <h4>Agility without loss of control</h4>
+          <p>Iterative delivery with governance, traceability, and controlled release management.</p>
+        </div>
+        <div class="resultCard">
+          <h4>Modernization without operational risk</h4>
+          <p>Security gates, testing rigor, and compliance sustainment built into delivery cycles.</p>
+        </div>
+        <div class="resultCard">
+          <h4>Continuous delivery aligned to mission outcomes</h4>
+          <p>Measurable progress tied to stakeholder priorities and operational performance.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT STRIP -->
+    <!-- <section id="contact" class="contactStrip" aria-label="Contact">
+      <div class="contactStrip__text">
+        <h3>Ready to modernize and operate at scale?</h3>
+        <p>Talk to our delivery and operations teams about Agile execution, program governance, and O&amp;M support in regulated federal environments.</p>
+      </div>
+      <div class="contactStrip__actions">
+        <a class="btn btn--primary" href="/cdn-cgi/l/email-protection#42212d2c3630232136310231233023312d243635233027313b3136272f316c212d2f">Email Us</a>
+        <a class="btn btn--ghost" href="https://www.sarasoftwaresystems.com/contact">Contact Form</a>
+      </div>
+    </section> -->
+
+  </div>
+  </section>
+
+  <!-- Footer -->
+   <div class="doc-footer">
+    <strong>Sara Software Systems, LLC</strong> &bull; 8(a), EDWOSB, SDB Certified &bull; CAGE: 7MFP4 &bull; DUNS: 080448437 &bull; UEI: KFF3SVYAQAG3<br>
+    Email: contracts@sarasoftwaresystems.com &bull; Web: www.sarasoftwaresystems.com &bull; Phone: (301) 560-0077
+  </div>
+
+</div><!-- /page 2 -->
+
+</body>
+</html>
